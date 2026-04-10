@@ -1,5 +1,6 @@
 import os
 import sys
+import platform
 from flask import Flask
 from flask_cors import CORS
 from datetime import datetime
@@ -11,7 +12,8 @@ if 'CURRENT_ENVIRONMENT' not in os.environ:
     sys.exit(1)
 
 # Create logs folder
-os.mkdir('./logs')
+#os.mkdir('./logs')
+os.makedirs(name="./logs", exist_ok=True)
 
 app = Flask(__name__)
 CORS(app)
@@ -21,7 +23,7 @@ def default():
     return {
         "time": str(datetime.now()),
         "environment": os.environ['CURRENT_ENVIRONMENT'],
-        "hostname": os.uname()[1],
+        "hostname": platform.uname()[1],
         "result": "root"
     }    
 
@@ -30,7 +32,7 @@ def get(name):
     return {
         "time": str(datetime.now()),
         "environment": os.environ['CURRENT_ENVIRONMENT'],
-        "hostname": os.uname()[1],
+        "hostname": platform.uname()[1],
         "result": name
     }
 

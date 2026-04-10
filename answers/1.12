@@ -1,0 +1,1 @@
+docker run -d --name mon-super-frontend -p 8083:80 -e TR_WS_BACK_URL="http://localhost:5000/" willowufgood75/lab-docker-rkla-front-img:latest

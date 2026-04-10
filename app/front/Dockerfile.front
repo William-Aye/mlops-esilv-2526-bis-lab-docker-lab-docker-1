@@ -1,0 +1,21 @@
+# 1. Image de base très légère
+FROM alpine:latest
+
+# 2. Installation de lighttpd
+RUN apk add --no-cache lighttpd
+
+# 3. Création du dossier qui va contenir notre site web
+RUN mkdir -p /var/www/html
+
+# 4. Copie de la configuration de lighttpd dans l'image
+COPY lighttpd.conf /etc/lighttpd/lighttpd.conf
+
+# 5. Copie de votre page HTML dans le dossier du serveur web
+# (Assurez-vous d'avoir un fichier index.html dans votre dossier front/)
+COPY . /var/www/html/
+
+# 6. Indique à Docker que le conteneur va écouter sur le port 80
+EXPOSE 80
+
+# 7. Commande pour démarrer lighttpd en premier plan (-D)
+CMD ["lighttpd", "-D", "-f", "/etc/lighttpd/lighttpd.conf"]
